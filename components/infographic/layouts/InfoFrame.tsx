@@ -19,7 +19,7 @@ export type InfoFrameData = {
 export function InfoFrame({ solarArc, albums, textData }: InfoFrameData) {
   return (
     <div className="flex flex-col items-center justify-center w-full h-full">
-      <div className="pt-[150px] relative px-[40px] w-full">
+      <div className="pt-[100px] md:pt-[150px] relative px-[40px] w-full">
         <div className="flex flex-col items-center justify-start">
           <TextLetterMotion {...textData} />
         </div>

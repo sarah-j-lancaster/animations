@@ -32,7 +32,7 @@ export function CustomUserDataFrame({
 }: CustomUserDataFrameProps) {
   return (
     <div className="flex flex-col items-center justify-center w-full h-full ">
-      <div className="pt-[150px] relative px-[45px]">
+      <div className="pt-[120px] sm:pt-[150px] relative px-[45px]">
         <div className="absolute z-20 w-full left-0 top-0 transform -translate-y-1/2">
           <div className="flex flex-col items-center justify-start">
             <TextLetterMotion {...label} />
