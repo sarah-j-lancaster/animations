@@ -1,6 +1,10 @@
+# Animation Infographics
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+---
+
+## 🚀 Getting Started
 
 First, run the development server:
 
@@ -8,41 +12,99 @@ First, run the development server:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
-## Docs:
+---
 
-These animations are data driven + content driven,
-The base of the system is a group of composable self-contained animation groups which are designed to live together in a frame and can be sequenced together to make a carousel-like animation.
+## 📄 Docs
 
-### Animations
+These animations are **data-driven + content-driven**.
 
-Animations have some customisation in terms of props (timing, colour, content, size etc.) and can complete an entire cycle of animating (eg. delay, fade in, wait, fade out). Animations use the framer-motion library to manage transforms, using both the motion components and the hooks.
+The base of the system is a group of composable, self-contained animation components designed to live together in a **frame**, and be sequenced to create a **carousel-like animation experience**.
 
-Future improvements: Error handling - some animations have minimum times to fully execute as their fade-ins and outs take a certain amount of time. This is not currently handled in the components. Extracting common patterns for calculating transforms (eg. an arc). Storybook - Would be great to test the limits of the animations and produce documentation about their content limits (eg. max chars for a TextWordMotion component inside an InfoFrame). Reduce motion handling for the solar arc component (possible refactor to use tranform rather than rotate so it can share code with other 'arcing components'). Unit testing. Standardisation of defaults (remove magic numbers, named defaults for transition times in animations).
+---
 
-## Data + state management
+### 🎞️ Animations
 
-Data is read from a config object (perhaps in the future coming from CMS +/ infographics endpoint as it is custom user data) and passed into a sequence player which will render frames based on config data - the duration and the frame type. The sequence player also maintains the state for when to display the reusable CTA animation after the animation frames are finished.
+Animations support customisation through props like:
 
-Future improvements: As the data is personalised, it needs to be fetched from external services, it would be great to add MSW to simulate this call and make a more realistic flow. Visual animation info could come from a CMS (colors, sizes etc.)
+- Timing
+- Color
+- Content
+- Size
 
-## Layout
+Each animation completes a full cycle: **delay → fade in → wait → fade out or stay**.
 
-In our design we have 7 unique animation components (for example the solar arc component which rotates and colour changes over a duration and also changes opacity) and two layout types where the animations are composed together in a frame. For now, the layouts are fairly content tolerant, using a combination of flex boxes and absolute positioning with sizes from the data config. I have restricted the page width to be sm for the demo as it fits the design better but the layout is fully responsive (remove max-w-sm in page to test responsive layout).
+Animations use the **Framer Motion** library (`motion` components + hooks) for transform management.
 
-This layout choice (the two frames) is the simplest solution for now and allows no customisation beyond modifying the content (eg. changing size of SolarArc ball, using 5 albums etc.), in the future, it could be possible to compose the layout, mix and match the animations and layers via the config also.
+#### 🔧 Future Improvements
 
-## A11y
+- Error handling for minimum animation durations (e.g. fade-in/out).
+- Extract reusable transform patterns (e.g. arcs).
+- Add **Storybook** to test and document animation limits (e.g. max text in `TextWordMotion`).
+- Improve **reduced motion** handling in `SolarArc`.
+- Add **unit tests**.
+- Standardize animation defaults (remove magic numbers, define named constants for transitions).
 
-Reduced motion : The animation does not run at all in this flow if a user prefers reduced motion, and only the final frame is statically rendered with the user data, this is currently also handled by the player. The animated text div’s are replaced by normal text and in the animated branch.
-Zoom: Layout is preserved on zoom.
-Screen reader: As the animation is not controlled by the user, a sr-only aria live element is used to tell the user whats going on and then after they've reached the end they can continue through the page. Aria-labels and aria-hidden attributes are used to account for the broken up html caused by the animations. All of the non-text only elements are aria hidden for now.
+---
 
-## Testing
+## 🧠 Data + State Management
 
-Short on time, I've gone light on tests, only some very light unit tests on the Sequence player, in a real context there would be more testing, in both jest and storybook, I could speed up dev time by generating them with integrated AI like Cline but in this context it would just create a review burden.
+- Data is read from a **config object**.
+- In the future, it may come from a CMS or `/infographics` endpoint.
+- A **SequencePlayer** renders frames based on type and duration.
+- It also manages when to display the reusable **CTA animation** after the sequence ends.
 
-### Other assets/packages
+#### 🔮 Future Improvements
 
-Test album data generated with chat GPT, font is Archivo Narrow and I SIL Open Font License, Version 1.1, using react-icons for the chevrons in the swipe animations for simplicity.
+- Integrate **MSW** to mock data fetching and simulate realistic user flow.
+- Allow visual config (e.g. colors, sizes) to come from CMS.
+
+---
+
+## 🧱 Layout
+
+- There are **7 unique animation components** (e.g. `SolarArc` with rotation, color, opacity).
+- They are composed in **two layout types** ("frames").
+- Layout uses **flexbox + absolute positioning**, driven by config.
+- The demo restricts page width to `max-w-sm` for better fit — remove that to test full responsiveness.
+
+#### 🧩 Layout Philosophy
+
+The current 2-frame system is a minimal viable structure. It supports basic content changes (e.g. number of albums, solar arc size), but does **not yet support dynamic layout composition**.
+
+In the future, the layout could be **fully configurable**, with mix-and-match animations and layers via config.
+
+---
+
+## ♿ Accessibility (A11y)
+
+- **Reduced Motion**: When `prefers-reduced-motion` is enabled, no animation plays — only the final user frame is shown. This is handled in the SequencePlayer.
+- **Zoom**: Layout is preserved when zoomed.
+- **Screen Readers**:
+
+  - An `aria-live="polite"` **sr-only element** announces frame changes.
+  - `aria-label` and `aria-hidden` are used to help screen readers deal with animated text.
+  - Non-text visual elements are marked `aria-hidden`.
+
+---
+
+## 🧪 Testing
+
+Due to time constraints, only **light unit tests** were added to the `SequencePlayer`.
+
+> In a full project, there would be:
+>
+> - Jest + RTL tests
+> - Storybook component specs
+> - Possibly auto-generated tests using AI tools (e.g. Cline), but in this context that would create review overhead.
+
+---
+
+## 📦 Other Assets / Packages
+
+- Album data: Generated using ChatGPT.
+- Font: [Archivo Narrow](https://fonts.google.com/specimen/Archivo+Narrow) (SIL Open Font License 1.1).
+- Icons: [react-icons](https://react-icons.github.io/react-icons/) used for swipe chevrons (for simplicity).
+
+---
