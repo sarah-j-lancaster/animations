@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { InfoFrameData, InfoFrame } from "./layouts/InfoFrame";
 import {
   CustomUserDataFrameProps,
@@ -9,6 +8,7 @@ import {
 import { SwipeUpPrompt } from "../animations/SwipeUpPrompt";
 import { useSwipePromptTiming } from "@/hooks/useSwipePromptTiming";
 import { useSequencePlayback } from "@/hooks/useSequencePlayback";
+import { MotionConfig } from "framer-motion";
 
 export type FrameData = InfoFrameData | CustomUserDataFrameProps;
 
@@ -38,17 +38,21 @@ export function SequencePlayer({ frames }: SequencePlayerProps) {
   };
 
   return (
-    <div className="relative w-full h-full">
-      <div className="sr-only" aria-live="polite" aria-atomic="true">
-        Frame {current + 1} of {frames.length}{" "}
-        {currentFrame.type === "info" ? `: ${currentFrame.textData.text}` : ""}
-      </div>
-      {renderFrame(currentFrame)}
-      {showSwipePrompt && (
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-50">
-          <SwipeUpPrompt />
+    <MotionConfig reducedMotion="user">
+      <div className="relative w-full h-full">
+        <div className="sr-only" aria-live="polite" aria-atomic="true">
+          Frame {current + 1} of {frames.length}{" "}
+          {currentFrame.type === "info"
+            ? `: ${currentFrame.textData.text}`
+            : ""}
         </div>
-      )}
-    </div>
+        {renderFrame(currentFrame)}
+        {showSwipePrompt && (
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-50">
+            <SwipeUpPrompt />
+          </div>
+        )}
+      </div>
+    </MotionConfig>
   );
 }

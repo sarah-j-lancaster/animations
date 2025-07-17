@@ -5,10 +5,11 @@ import { IoChevronUp } from "react-icons/io5";
 
 interface SwipeUpPromptProps {
   text?: string;
-  onSwipe?: () => void;
 }
 
-export function SwipeUpPrompt({ text = 'Swipe up to continue', onSwipe }: SwipeUpPromptProps) {
+export function SwipeUpPrompt({
+  text = "Swipe up to continue",
+}: SwipeUpPromptProps) {
   return (
     <motion.div
       initial={{ y: 42, opacity: 0 }}
