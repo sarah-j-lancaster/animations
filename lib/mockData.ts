@@ -115,7 +115,7 @@ export const frames: FrameData[] = [
     },
   },
   {
-    type: "data",
+    type: "custom-user-data",
     id: "frame-4",
     duration: 2500,
     solarMotion: {
